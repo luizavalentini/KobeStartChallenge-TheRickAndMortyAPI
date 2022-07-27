@@ -12,7 +12,7 @@ abstract class Repository {
        );
 
   static Future<PaginatedCharacter> getPage() async {
-    final response = await _dio.get('/character/?page');
+    final response = await _dio.get('/character');
 
     final data = PaginatedCharacter.fromJson(response.data);
 
