@@ -22,10 +22,14 @@ class CharacterCard extends StatelessWidget {
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
+        onTap: () {},
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
+              fit: BoxFit.fitWidth,
+              height: 160,
+              width: 360,
               'https://rickandmortyapi.com/api/character/avatar/${character.id}.jpeg',
             ),
             Padding(
