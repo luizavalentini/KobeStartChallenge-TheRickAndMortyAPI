@@ -7,9 +7,11 @@ class CharacterCard extends StatelessWidget {
   const CharacterCard({
     Key? key,
     required this.character,
+    this.onTap,
   }) : super(key: key);
 
   final Character character;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CharacterCard extends StatelessWidget {
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
