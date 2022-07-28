@@ -17,6 +17,9 @@ PreferredSizeWidget appBarComponent(
       alignment: Alignment.topCenter,
       child: GestureDetector(
         onTap: () {
+          final currentRoute = ModalRoute.of(context)?.settings.name;
+
+          if (currentRoute == HomePage.routeId) return;
           Navigator.of(context).pop();
         },
         child: Icon(
