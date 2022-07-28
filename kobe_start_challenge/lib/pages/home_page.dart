@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    character = Repository.getCharacter(0);
+    character = Repository.getPage(0);
     super.initState();
   }
 
