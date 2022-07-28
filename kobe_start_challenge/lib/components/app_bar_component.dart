@@ -17,10 +17,6 @@ PreferredSizeWidget appBarComponent(
       alignment: Alignment.topCenter,
       child: GestureDetector(
         onTap: () {
-          final currentRoute = ModalRoute.of(context)?.settings.name;
-
-          if (currentRoute == HomePage.routeId) return;
-
           Navigator.of(context).pop();
         },
         child: Icon(
@@ -31,9 +27,14 @@ PreferredSizeWidget appBarComponent(
     actions: [
       Container(
         alignment: Alignment.topCenter,
+        margin: const EdgeInsets.only(right: 10),
+        child: const Icon(Icons.search),
+      ),
+      Container(
+        alignment: Alignment.topCenter,
         margin: const EdgeInsets.only(right: 16),
         child: const Icon(
-          Icons.person,
+          Icons.account_circle,
           color: AppColors.white,
         ),
       )
