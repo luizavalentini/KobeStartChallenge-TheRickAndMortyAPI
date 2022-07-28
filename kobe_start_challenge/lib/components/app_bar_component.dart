@@ -7,7 +7,7 @@ import '../theme/app_images.dart';
 
 PreferredSizeWidget appBarComponent(
   BuildContext context, {
-  bool isSecodPage = false,
+  bool isSecondPage = false,
 }) {
   return AppBar(
     toolbarHeight: kToolbarHeight * 2.2,
@@ -23,7 +23,7 @@ PreferredSizeWidget appBarComponent(
           Navigator.of(context).pop();
         },
         child: Icon(
-          Icons.menu,
+          isSecondPage ? Icons.arrow_back_ios : Icons.menu,
         ),
       ),
     ),
