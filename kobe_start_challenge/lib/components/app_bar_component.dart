@@ -30,11 +30,6 @@ PreferredSizeWidget appBarComponent(
     actions: [
       Container(
         alignment: Alignment.topCenter,
-        margin: const EdgeInsets.only(right: 10),
-        child: const Icon(Icons.search),
-      ),
-      Container(
-        alignment: Alignment.topCenter,
         margin: const EdgeInsets.only(right: 16),
         child: const Icon(
           Icons.account_circle,

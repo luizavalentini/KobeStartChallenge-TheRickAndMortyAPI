@@ -12,7 +12,7 @@ class PaginatedCharacter {
   factory PaginatedCharacter.fromJson(Map<String, dynamic> map) {
     return PaginatedCharacter(
       results: List<Character>.from(
-        (map['results'] as List).map<Character>(
+        (map['results']).map<Character>(
           (x) => Character.fromJson(x as Map<String, dynamic>),
         ),
       ),
