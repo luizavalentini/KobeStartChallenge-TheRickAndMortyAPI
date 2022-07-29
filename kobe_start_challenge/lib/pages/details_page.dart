@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kobe_start_challenge/components/app_bar_component.dart';
 import 'package:kobe_start_challenge/data/repository.dart';
 import 'package:kobe_start_challenge/models/detailed_character.dart';
+import 'package:kobe_start_challenge/pages/teste.dart';
 import 'package:kobe_start_challenge/theme/app_colors.dart';
-import 'package:kobe_start_challenge/pages/home_page.dart';
 
 class DetailsPage extends StatefulWidget {
   static const routeId = '/details';
@@ -43,7 +43,7 @@ class _DetailsPageState extends State<DetailsPage> {
               detailedCharacter: data,
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text(
                 'Ocorreu um erro',
                 style: TextStyle(
@@ -74,7 +74,7 @@ class DetailedCharacterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = detailedCharacter.name;
     final status = detailedCharacter.status;
-    final specie = detailedCharacter.status;
+    final specie = detailedCharacter.species;
     final location = detailedCharacter.location;
     final last_seen = detailedCharacter.episode;
 
@@ -111,54 +111,91 @@ class DetailedCharacterCard extends StatelessWidget {
                       fontSize: 14.5,
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    '${status} - ${specie}',
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12.5,
+                  Row(children: <Widget>[
+                    detailedCharacter.status == "Alive" ? alive : dead,
+                    SizedBox(height: 60, width: 9),
+                    Text(
+                      '${status} - ${specie}',
+                      style: const TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12.5,
+                      ),
+                    ),
+                  ]),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'Last known location:',
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    'Last seen Location:',
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12.5,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'nome da cidade',
+                          //'${detailedCharacter.location}',
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    '${location}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 12.5,
+                  const SizedBox(
+                    width: 10000,
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'First time seen:',
+                          //'${detailedCharacter.location}',
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'First seen in:',
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12.5,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${last_seen}',
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 3),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'episodio',
+                          //'${detailedCharacter.episode}',
+                          style: const TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.5,
+          ),),
+           ], ), ),
+              ],),),],  
+                ), 
+                 
+                
+              
+            
+         
+       
+      )
     ]);
   }
 }
