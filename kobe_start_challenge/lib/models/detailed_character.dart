@@ -3,22 +3,22 @@ class DetailedCharacter {
   final String name;
   final String status;
   final String species;
-  final Object location;
+  final String gender;
+  final OriginName origin;
+  final NameLocation location;
   final String image;
   final List<String> episode;
-  final String url;
-  final String created;
 
   DetailedCharacter({
     required this.id,
     required this.name,
     required this.status,
     required this.species,
+    required this.gender,
+    required this.origin,
     required this.location,
     required this.image,
-    required this.episode,
-    required this.url,
-    required this.created,
+    this.episode = const [],
   });
 
   factory DetailedCharacter.fromJson(Map<String, dynamic> map) {
@@ -27,11 +27,48 @@ class DetailedCharacter {
       name: map['name'] as String,
       status: map['status'] as String,
       species: map['species'] as String,
-      location: map['location'] as Object,
+      gender: map['gender'] as String,
+      origin: OriginName.fromJson(map['origin'] as Map<String, dynamic>),
+      location: NameLocation.fromJson(map['location'] as Map<String, dynamic>),
       image: map['image'] as String,
       episode: map['episode'].cast<String>(),
+    );
+  }
+}
+
+class NameLocation {
+  final String name;
+  final String url;
+
+  NameLocation({
+    required this.name,
+    required this.url,
+  });
+
+  factory NameLocation.fromJson(Map<String, dynamic> map) {
+    return NameLocation(
+      name: map['name'] as String,
       url: map['url'] as String,
-      created: map['created'] as String,
+    );
+  }
+}
+
+class OriginName {
+  final String name;
+
+  OriginName({
+    required this.name,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+    };
+  }
+
+  factory OriginName.fromJson(Map<String, dynamic> map) {
+    return OriginName(
+      name: map['name'] as String,
     );
   }
 }

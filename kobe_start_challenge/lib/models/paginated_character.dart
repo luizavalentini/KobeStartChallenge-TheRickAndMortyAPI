@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:kobe_start_challenge/models/info.dart';
 
 class PaginatedCharacter {
@@ -26,6 +29,7 @@ class Character {
   final String name;
   final String status;
   final String species;
+  //final Object origin;
   final Object location;
   final String image;
   final List<String> episode;
@@ -55,6 +59,22 @@ class Character {
       episode: map['episode'].cast<String>(),
       url: map['url'] as String,
       created: map['created'] as String,
+    );
+  }
+}
+
+class Origin {
+  final String name;
+  final String url;
+  Origin({
+    required this.name,
+    required this.url,
+  });
+
+  factory Origin.fromMap(Map<String, dynamic> map) {
+    return Origin(
+      name: map['name'] as String,
+      url: map['url'] as String,
     );
   }
 }
