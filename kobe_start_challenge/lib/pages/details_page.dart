@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kobe_start_challenge/components/app_bar_component.dart';
 import 'package:kobe_start_challenge/data/repository.dart';
 import 'package:kobe_start_challenge/models/detailed_character.dart';
-import 'package:kobe_start_challenge/pages/teste.dart';
+import 'package:kobe_start_challenge/pages/constants.dart';
 import 'package:kobe_start_challenge/theme/app_colors.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -113,7 +113,7 @@ class DetailedCharacterCard extends StatelessWidget {
                   ),
                   Row(children: <Widget>[
                     detailedCharacter.status == "Alive" ? alive : dead,
-                    SizedBox(height: 60, width: 9),
+                    const SizedBox(height: 60, width: 9),
                     Text(
                       '${status} - ${specie}',
                       style: const TextStyle(
@@ -126,10 +126,10 @@ class DetailedCharacterCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'Last known location:',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w300,
                             fontSize: 12.5,
@@ -141,11 +141,11 @@ class DetailedCharacterCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'nome da cidade',
                           //'${detailedCharacter.location}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.5,
@@ -161,11 +161,11 @@ class DetailedCharacterCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'First time seen:',
                           //'${detailedCharacter.location}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.5,
@@ -177,11 +177,11 @@ class DetailedCharacterCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'episodio',
                           //'${detailedCharacter.episode}',
-                          style: const TextStyle(
+                          style:TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.5,
