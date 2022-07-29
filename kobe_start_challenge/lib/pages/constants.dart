@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-CircleAvatar alive = CircleAvatar(
+CircleAvatar alive = const CircleAvatar(
   radius: 4,
   backgroundColor: Colors.green,
 );
-CircleAvatar dead = CircleAvatar(
+CircleAvatar dead = const CircleAvatar(
   radius: 4,
   backgroundColor: Colors.red,
 );
