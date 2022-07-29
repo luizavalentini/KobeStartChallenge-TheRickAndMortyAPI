@@ -75,8 +75,10 @@ class DetailedCharacterCard extends StatelessWidget {
     final name = detailedCharacter.name;
     final status = detailedCharacter.status;
     final specie = detailedCharacter.species;
-    final location = detailedCharacter.location;
-    final last_seen = detailedCharacter.episode;
+    final gender = detailedCharacter.gender;
+    final location = detailedCharacter.location.name;
+    final origin = detailedCharacter.origin.name;
+    final firstSeen = detailedCharacter.episode;
 
     return ListView(children: [
       Card(
@@ -94,7 +96,7 @@ class DetailedCharacterCard extends StatelessWidget {
                 width: 340,
                 'https://rickandmortyapi.com/api/character/avatar/${detailedCharacter.id}.jpeg'),
             Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 top: 12,
                 left: 16,
                 right: 15,
@@ -105,7 +107,7 @@ class DetailedCharacterCard extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.white,
                       fontWeight: FontWeight.w900,
                       fontSize: 14.5,
@@ -115,8 +117,8 @@ class DetailedCharacterCard extends StatelessWidget {
                     detailedCharacter.status == "Alive" ? alive : dead,
                     const SizedBox(height: 60, width: 9),
                     Text(
-                      '${status} - ${specie}',
-                      style: const TextStyle(
+                      '${status} - ${specie} - ${gender}',
+                      style: TextStyle(
                         color: AppColors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 12.5,
@@ -124,9 +126,9 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ]),
                   Padding(
-                    padding: const EdgeInsets.only(left: 3),
+                    padding: EdgeInsets.only(left: 3),
                     child: Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Text(
                           'Last known location:',
                           style: TextStyle(
@@ -139,12 +141,11 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 3),
+                    padding: EdgeInsets.only(left: 3),
                     child: Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Text(
-                          'nome da cidade',
-                          //'${detailedCharacter.location}',
+                          location,
                           style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
@@ -159,12 +160,45 @@ class DetailedCharacterCard extends StatelessWidget {
                     height: 15,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 3),
+                    padding: EdgeInsets.only(left: 3),
                     child: Row(
-                      children: const <Widget>[
+                      children: <Widget>[
+                        Text(
+                          'Origin:',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 3),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          origin,
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 12.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10000,
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 3),
+                    child: Row(
+                      children: <Widget>[
                         Text(
                           'First time seen:',
-                          //'${detailedCharacter.location}',
                           style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
@@ -175,26 +209,26 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 3),
+                    padding: EdgeInsets.only(left: 3),
                     child: Row(
-                      children: const <Widget>[
+                      children: <Widget>[
                         Text(
-                          'episodio',
-                          //'${detailedCharacter.episode}',
-                          style:TextStyle(
+                          //'episodio',
+                          '${detailedCharacter.episode.last.length}',
+                          style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.5,
-          ),),
-           ], ), ),
-              ],),),],  
-                ), 
-                 
-                
-              
-            
-         
-       
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       )
     ]);
   }
