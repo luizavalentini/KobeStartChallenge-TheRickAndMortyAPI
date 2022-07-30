@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kobe_start_challenge/pages/home_page.dart';
 import 'package:kobe_start_challenge/theme/app_colors.dart';
-
 import '../theme/app_images.dart';
 
 PreferredSizeWidget appBarComponent(
@@ -16,12 +15,11 @@ PreferredSizeWidget appBarComponent(
     leading: Align(
       alignment: Alignment.topCenter,
       child: GestureDetector(
-        onTap: () {
-          final currentRoute = ModalRoute.of(context)?.settings.name;
-
-          if (currentRoute == HomePage.routeId) return;
-          Navigator.of(context).pop();
-        },
+        onTap: ModalRoute.of(context)?.settings.name != HomePage.routeId
+            ? () {
+                Navigator.of(context).pop();
+              }
+            : null,
         child: Icon(
           isSecondPage ? Icons.arrow_back_ios : Icons.menu,
         ),

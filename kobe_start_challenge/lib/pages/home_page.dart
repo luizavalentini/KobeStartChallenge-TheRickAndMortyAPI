@@ -42,8 +42,6 @@ class _HomePageState extends State<HomePage> {
             future: homeController.paginatedCharacter(initialUrl),
             builder: (_, AsyncSnapshot<PaginatedCharacter> snapshot) {
               if (snapshot.hasData) {
-                //final dataResults = snapshot.data!.results;
-                //contentPage.addAll(snapshot.data!.results);
                 responsePage = snapshot.data!;
 
                 return SmartRefresher(

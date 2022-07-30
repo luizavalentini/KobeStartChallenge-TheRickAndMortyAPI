@@ -9,7 +9,6 @@ abstract class Repository {
   static Future<PaginatedCharacter> getPage(String url) async {
     try { final response =
         await _dio.get(url);
-    print(response.data);
     final data = PaginatedCharacter.fromJson(response.data);
 
     return data;} catch (_) {
@@ -20,7 +19,6 @@ abstract class Repository {
   static Future<DetailedCharacter> getCharacter(int characterId) async {
      try { final response = await _dio
         .get('https://rickandmortyapi.com/api/character/$characterId');
-    print(response.data);
     final data = DetailedCharacter.fromJson(response.data);
 
     return data;} catch (_) {
@@ -29,7 +27,6 @@ abstract class Repository {
   }
   static Future<DetailedEpisode> getEpisode(String url) async {
      try {final response = await _dio.get(url);
-    print(response.data);
     final data = DetailedEpisode.fromJson(response.data);
 
     return data;} catch (_) {
