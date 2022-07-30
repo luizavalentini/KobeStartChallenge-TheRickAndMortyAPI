@@ -5,6 +5,7 @@ import 'package:kobe_start_challenge/controller/home_controller.dart';
 import 'package:kobe_start_challenge/models/paginated_character.dart';
 import 'package:kobe_start_challenge/pages/details_page.dart';
 import 'package:kobe_start_challenge/theme/app_colors.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatefulWidget {
   static const routeId = '/';
@@ -16,47 +17,94 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final homeController = HomeController();
+  final refreshController = RefreshController(initialRefresh: false);
+  String initialUrl = 'https://rickandmortyapi.com/api/character';
+  late PaginatedCharacter responsePage;
+  List<Character> contentPage = [];
 
   @override
   void initState() {
-    homeController.paginatedCharacter(0);
+    initialLoading();
     super.initState();
+  }
+
+  Future<void> initialLoading() async {
+    responsePage = await homeController.paginatedCharacter(initialUrl);
+    contentPage.addAll(responsePage.results);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarComponent(context),
-      backgroundColor: AppColors.backgroundColor,
-      body: FutureBuilder(
-          future: homeController.paginatedCharacter(0),
-          builder: (_, AsyncSnapshot<PaginatedCharacter> snapshot) {
-            if (snapshot.hasData) {
-              final dataResults = snapshot.data!.results;
+        appBar: appBarComponent(context),
+        backgroundColor: AppColors.backgroundColor,
+        body: FutureBuilder(
+            future: homeController.paginatedCharacter(initialUrl),
+            builder: (_, AsyncSnapshot<PaginatedCharacter> snapshot) {
+              if (snapshot.hasData) {
+                //final dataResults = snapshot.data!.results;
+                //contentPage.addAll(snapshot.data!.results);
+                responsePage = snapshot.data!;
 
-              return ListView.separated(
-                itemBuilder: (_, index) {
-                  final character = dataResults[index];
+                return SmartRefresher(
+                  footer: const ClassicFooter(),
+                  header: const MaterialClassicHeader(color: Colors.black),
+                  enablePullUp: true,
+                  enablePullDown: true,
+                  controller: refreshController,
+                  onRefresh: () => onRefresh(),
+                  onLoading: () => onLoading(),
+                  child: ListView.separated(
+                    itemBuilder: (_, index) {
+                      final character = contentPage[index];
 
-                  return CharacterCard(
-                    character: character,
-                    onTap: () => Navigator.of(context).pushNamed(
-                      DetailsPage.routeId,
-                      arguments: character.id,
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
-                itemCount: dataResults.length,
-              );
-            } else if (snapshot.hasError) {
-              const Center(
-                child: Text('Ocorreu um error'),
-              );
-            }
-            return const CircularProgressIndicator();
-          }),
-    );
+                      return CharacterCard(
+                        character: character,
+                        onTap: () => Navigator.of(context).pushNamed(
+                          DetailsPage.routeId,
+                          arguments: character.id,
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
+                    itemCount: contentPage.length,
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                const Center(
+                  child: Text('Ocorreu um error'),
+                );
+              }
+              return const CircularProgressIndicator();
+            }));
+  }
+
+  void onLoading() async {
+    if (mounted) {
+      initialUrl = responsePage.info.next;
+      final result =
+          await homeController.paginatedCharacter(responsePage.info.next);
+      setState(() {
+        contentPage.addAll(result.results);
+      });
+    }
+    refreshController.loadComplete();
+  }
+
+  void onRefresh() async {
+    initialUrl = responsePage.info.next;
+    final result =
+        await homeController.paginatedCharacter(responsePage.info.next);
+    setState(() {
+      contentPage.addAll(result.results);
+      refreshController.refreshCompleted();
+    });
+  }
+
+  @override
+  void dispose() {
+    refreshController.dispose();
+    super.dispose();
   }
 }

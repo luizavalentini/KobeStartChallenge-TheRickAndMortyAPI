@@ -6,9 +6,9 @@ import 'package:kobe_start_challenge/models/detailed_character.dart';
 abstract class Repository {
   static final _dio = Dio(
       );
-  static Future<PaginatedCharacter> getPage(int page) async {
+  static Future<PaginatedCharacter> getPage(String url) async {
     try { final response =
-        await _dio.get('https://rickandmortyapi.com/api/character/?page=$page');
+        await _dio.get(url);
     print(response.data);
     final data = PaginatedCharacter.fromJson(response.data);
 
