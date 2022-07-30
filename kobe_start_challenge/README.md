@@ -1,16 +1,7 @@
-# kobe_start_challenge
 
-A new Flutter project.
+# KOBE START CHALLANGE - THE RICKY AND MORTY API
 
-## Getting Started
+This is an application for test the [the Ricky and Morty API ](https://rickandmortyapi.com), getting the characters from the show and showing the details.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Tools
+Developed with IDE `Iphone 12 mini - IOS 15.5`
