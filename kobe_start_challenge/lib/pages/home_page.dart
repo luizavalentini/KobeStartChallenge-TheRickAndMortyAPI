@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kobe_start_challenge/components/app_bar_component.dart';
 import 'package:kobe_start_challenge/components/character_card_component.dart';
-import 'package:kobe_start_challenge/data/repository.dart';
+import 'package:kobe_start_challenge/controller/home_controller.dart';
 import 'package:kobe_start_challenge/models/paginated_character.dart';
 import 'package:kobe_start_challenge/pages/details_page.dart';
 import 'package:kobe_start_challenge/theme/app_colors.dart';
@@ -15,17 +15,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<PaginatedCharacter>? character;
+  final homeController = HomeController();
 
   @override
   void initState() {
-    character = Repository.getPage(0);
+    homeController.paginatedCharacter(0);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -34,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       appBar: appBarComponent(context),
       backgroundColor: AppColors.backgroundColor,
       body: FutureBuilder(
-          future: character,
+          future: homeController.paginatedCharacter(0),
           builder: (_, AsyncSnapshot<PaginatedCharacter> snapshot) {
             if (snapshot.hasData) {
               final dataResults = snapshot.data!.results;
@@ -55,8 +50,12 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 16),
                 itemCount: dataResults.length,
               );
+            } else if (snapshot.hasError) {
+              const Center(
+                child: Text('Ocorreu um error'),
+              );
             }
-            return Container();
+            return const CircularProgressIndicator();
           }),
     );
   }
