@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kobe_start_challenge/components/app_bar_component.dart';
-import 'package:kobe_start_challenge/data/repository.dart';
-import 'package:kobe_start_challenge/models/detailed_character.dart';
+import 'package:kobe_start_challenge/controller/detailed_controller.dart';
+import 'package:kobe_start_challenge/models/complete_character.dart';
 import 'package:kobe_start_challenge/pages/constants.dart';
 import 'package:kobe_start_challenge/theme/app_colors.dart';
 
@@ -20,11 +20,11 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  Future<DetailedCharacter>? characters;
+  final detailedController = DetailedController();
 
   @override
   void initState() {
-    characters = Repository.getCharacter(widget.characterId);
+    detailedController.loadingInfo(widget.characterId);
     super.initState();
   }
 
@@ -33,14 +33,14 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: appBarComponent(context, isSecondPage: true),
       backgroundColor: AppColors.backgroundColor,
-      body: FutureBuilder<DetailedCharacter>(
-        future: characters,
+      body: FutureBuilder<CompleteCharacter>(
+        future: detailedController.loadingInfo(widget.characterId),
         builder: (_, snapshot) {
           if (snapshot.hasData) {
             final data = snapshot.data!;
 
             return DetailedCharacterCard(
-              detailedCharacter: data,
+              completeCharacter: data,
             );
           } else if (snapshot.hasError) {
             return const Center(
@@ -65,20 +65,20 @@ class _DetailsPageState extends State<DetailsPage> {
 class DetailedCharacterCard extends StatelessWidget {
   const DetailedCharacterCard({
     Key? key,
-    required this.detailedCharacter,
+    required this.completeCharacter,
   }) : super(key: key);
 
-  final DetailedCharacter detailedCharacter;
+  final CompleteCharacter completeCharacter;
 
   @override
   Widget build(BuildContext context) {
-    final name = detailedCharacter.name;
-    final status = detailedCharacter.status;
-    final specie = detailedCharacter.species;
-    final gender = detailedCharacter.gender;
-    final location = detailedCharacter.location.name;
-    final origin = detailedCharacter.origin.name;
-    final firstSeen = detailedCharacter.episode;
+    final name = completeCharacter.detailedCharacter.name;
+    final status = completeCharacter.detailedCharacter.status;
+    final specie = completeCharacter.detailedCharacter.species;
+    final gender = completeCharacter.detailedCharacter.gender;
+    final location = completeCharacter.detailedCharacter.location.name;
+    final origin = completeCharacter.detailedCharacter.origin.name;
+    final firstSeen = completeCharacter.detailedEpisode.name;
 
     return ListView(children: [
       Card(
@@ -94,9 +94,9 @@ class DetailedCharacterCard extends StatelessWidget {
                 fit: BoxFit.fitWidth,
                 height: 240,
                 width: 340,
-                'https://rickandmortyapi.com/api/character/avatar/${detailedCharacter.id}.jpeg'),
+                'https://rickandmortyapi.com/api/character/avatar/${completeCharacter.detailedCharacter.id}.jpeg'),
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 12,
                 left: 16,
                 right: 15,
@@ -107,18 +107,20 @@ class DetailedCharacterCard extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.white,
                       fontWeight: FontWeight.w900,
                       fontSize: 14.5,
                     ),
                   ),
                   Row(children: <Widget>[
-                    detailedCharacter.status == "Alive" ? alive : dead,
+                    completeCharacter.detailedCharacter.status == "Alive"
+                        ? alive
+                        : dead,
                     const SizedBox(height: 60, width: 9),
                     Text(
-                      '${status} - ${specie} - ${gender}',
-                      style: TextStyle(
+                      '$status - $specie - $gender',
+                      style: const TextStyle(
                         color: AppColors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 12.5,
@@ -126,9 +128,9 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ]),
                   Padding(
-                    padding: EdgeInsets.only(left: 3),
+                    padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'Last known location:',
                           style: TextStyle(
@@ -141,12 +143,12 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 3),
+                    padding: const EdgeInsets.only(left: 3),
                     child: Row(
                       children: <Widget>[
                         Text(
                           location,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.5,
@@ -160,9 +162,9 @@ class DetailedCharacterCard extends StatelessWidget {
                     height: 15,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 3),
+                    padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'Origin:',
                           style: TextStyle(
@@ -175,12 +177,12 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 3),
+                    padding: const EdgeInsets.only(left: 3),
                     child: Row(
                       children: <Widget>[
                         Text(
                           origin,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w300,
                             fontSize: 12.5,
@@ -194,9 +196,9 @@ class DetailedCharacterCard extends StatelessWidget {
                     height: 15,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 3),
+                    padding: const EdgeInsets.only(left: 3),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           'First time seen:',
                           style: TextStyle(
@@ -209,13 +211,12 @@ class DetailedCharacterCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 3),
+                    padding: const EdgeInsets.only(left: 3),
                     child: Row(
                       children: <Widget>[
                         Text(
-                          //'episodio',
-                          '${detailedCharacter.episode.last.length}',
-                          style: TextStyle(
+                          firstSeen,
+                          style: const TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 12.5,
